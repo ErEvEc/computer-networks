@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body style="font-family: verdana, sans-serif;font-size: 12px;">
+<p>// Client side C/C++ program to demonstrate Socket programming <br />#include &lt;stdio.h&gt; <br />#include &lt;sys/socket.h&gt; <br />#include &lt;arpa/inet.h&gt; <br />#include &lt;unistd.h&gt; <br />#include &lt;string.h&gt; <br />#define PORT 8080</p>
+<p>int main(int argc, char const *argv[]) <br />{ <br />int sock = 0, valread; <br />struct sockaddr_in serv_addr; <br />char *hello = "Hello from client"; <br />char buffer[1024] = {0}; <br />if ((sock = socket(AF_INET, SOCK_STREAM, 0)) &lt; 0) <br />{ <br />printf("\n Socket creation error \n"); <br />return -1; <br />}</p>
+<p>serv_addr.sin_family = AF_INET; <br />serv_addr.sin_port = htons(PORT); <br /><br />// Convert IPv4 and IPv6 addresses from text to binary form <br />if(inet_pton(AF_INET, "127.0.0.1", &amp;serv_addr.sin_addr)&lt;=0) <br />{ <br />printf("\nInvalid address/ Address not supported \n"); <br />return -1; <br />}</p>
+<p>if (connect(sock, (struct sockaddr *)&amp;serv_addr, sizeof(serv_addr)) &lt; 0) <br />{ <br />printf("\nConnection Failed \n"); <br />return -1; <br />} <br />send(sock , hello , strlen(hello) , 0 ); <br />printf("Hello message sent\n"); <br />valread = read( sock , buffer, 1024); <br />printf("%s\n",buffer ); <br />return 0; <br />}</p>
+</body>
+</html>
